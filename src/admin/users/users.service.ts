@@ -80,7 +80,7 @@ export class UsersService {
         ? { status: params.status }
         : {};
 
-    // search = { ...{ user_role: { $in: ['user', 'client'] } }, ...search };
+    search = { ...{ user_role: { $in: ['client'] } }, ...search };
 
     const sort =
       params.sortBy && params.sortBy.length
