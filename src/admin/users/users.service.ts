@@ -13,7 +13,6 @@ export class UsersService {
   ) {}
 
   async create(createUserDto: CreateUserDto): Promise<User> {
-    createUserDto.user_role = 'client';
     const userExists = await this.userModel.findOne({
       email: createUserDto.email,
       user_role: createUserDto.user_role,

@@ -5,7 +5,7 @@ import { ExpressAdapter } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
 import configuration from './config/configuration';
 import * as express from 'express';
-import * as bodyParser from 'body-parser'; // Importa bodyParser
+import * as bodyParser from 'body-parser'; 
 
 async function bootstrap() {
   const server = express();
