@@ -10,7 +10,10 @@ export class UpdateProductDto {
   price: string;
 
   @IsNotEmpty()
-  its_sale: string;
+  in_offer: string;
+  
+  @IsOptional()
+  discount: string;
 
   @IsOptional()
   status: string;

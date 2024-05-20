@@ -12,8 +12,11 @@ export class ProductSerializer {
   description: string;
 
   @Expose()
-  its_sale: string;
-
+  in_offer: string;
+  
+  @Expose()
+  discount: string;
+  
   @Expose()
   status: string;
 

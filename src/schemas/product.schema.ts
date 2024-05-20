@@ -11,7 +11,10 @@ export class Product {
   description: string;
 
   @Prop()
-  its_sale: string;
+  in_offer: string;
+
+  @Prop()
+  discount: string;
 
   @Prop()
   status: string;
