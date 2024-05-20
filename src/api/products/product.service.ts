@@ -11,10 +11,10 @@ export class ProductService {
 
   async findAll(params): Promise<any> {
     let sort = {};
-    if (params.sortBy && params.sortBy.length) {
-      sort[params.sortBy] = -1;
-    }
-    const result = await this.productModel.find({status:'active'}).sort(sort);
+    sort['createdAt'] = -1;
+    const result = await this.productModel
+      .find({ status: 'active' })
+      .sort(sort);
     return result;
   }
 

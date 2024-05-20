@@ -48,8 +48,6 @@ export class ProductService {
           );
     
         const form = { ...updateProductDto };
-        console.log(updateProductDto);
-        
     
         await this.productModel.findOneAndUpdate({ _id: id }, form);
         const product = await this.productModel.findOne({ _id: id });
