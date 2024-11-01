@@ -4,9 +4,8 @@ import { ApiModule } from './api.module';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
 import configuration from './config/configuration';
-import * as express from 'express';
+import * as express from 'express'; 
 import * as bodyParser from 'body-parser'; 
-import * as cors from 'cors';
 
 async function bootstrap() {
   const server = express();
@@ -18,21 +17,21 @@ async function bootstrap() {
   const api = await NestFactory.create(ApiModule, adapter);
   const admin = await NestFactory.create(AdminModule, adapter);
 
+  api.enableShutdownHooks();
+  admin.enableShutdownHooks();
+
+  // Definir las opciones de CORS
   const corsOptions = {
-    origin: '*', // Cambia esto a tu dominio o usa '*' para permitir todos
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true,
-    preflightContinue: false,
+      origin: '*', // Cambia esto a tu dominio específico si es necesario
+      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+      credentials: true,
   };
 
   api.enableCors(corsOptions);
   admin.enableCors(corsOptions);
 
-  api.enableShutdownHooks();
-  admin.enableShutdownHooks();
-
-  api.setGlobalPrefix('api/v1').enableCors();
-  admin.setGlobalPrefix('api/admin/v1').enableCors();
+  api.setGlobalPrefix('api/v1');
+  admin.setGlobalPrefix('api/admin/v1');
 
   const validatorOptions = { stopAtFirstError: true };
 
