@@ -1,8 +1,7 @@
 import { Module } from '@nestjs/common';
 import { PostModule } from './admin/post/post.module';
 import { AuthModule } from './admin/auth/auth.module';
-// import { ConfigModule } from '@nestjs/config';
-import { ConfigModule, ConfigService } from '@nestjs/config';
+import { ConfigModule } from '@nestjs/config';
 import configuration from './config/configuration';
 import { MongooseModule } from '@nestjs/mongoose';
 import { UsersModule } from './admin/users/users.module';
@@ -17,21 +16,7 @@ import * as path from 'path';
       isGlobal: true,
       load: [configuration],
     }),
-    // MongooseModule.forRoot(configuration().database.url),
-    MongooseModule.forRootAsync({
-      imports: [ConfigModule],
-      inject: [ConfigService],
-      useFactory: (configService: ConfigService) => {
-        const dbUrl = configService.get<string>('database.url');
-        console.log('Database URL:', dbUrl);  // Confirmación
-        return {
-          uri: dbUrl,
-          retryAttempts: 10,
-          retryDelay: 5000,
-        };
-      },
-    }),
-    
+    MongooseModule.forRoot(configuration().database.url),
     PostModule, 
     ProductModule, 
     AuthModule,

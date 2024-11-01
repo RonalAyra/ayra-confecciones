@@ -4,7 +4,7 @@ import { ApiModule } from './api.module';
 import { ExpressAdapter } from '@nestjs/platform-express';
 import { ValidationPipe } from '@nestjs/common';
 import configuration from './config/configuration';
-import * as express from 'express'; 
+import * as express from 'express';
 import * as bodyParser from 'body-parser'; 
 
 async function bootstrap() {
@@ -20,18 +20,8 @@ async function bootstrap() {
   api.enableShutdownHooks();
   admin.enableShutdownHooks();
 
-  // Definir las opciones de CORS
-  const corsOptions = {
-      origin: '*', // Cambia esto a tu dominio específico si es necesario
-      methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-      credentials: true,
-  };
-
-  api.enableCors(corsOptions);
-  admin.enableCors(corsOptions);
-
-  api.setGlobalPrefix('api/v1');
-  admin.setGlobalPrefix('api/admin/v1');
+  api.setGlobalPrefix('api/v1').enableCors();
+  admin.setGlobalPrefix('api/admin/v1').enableCors();
 
   const validatorOptions = { stopAtFirstError: true };
 
