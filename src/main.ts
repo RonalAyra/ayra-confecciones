@@ -6,6 +6,7 @@ import { ValidationPipe } from '@nestjs/common';
 import configuration from './config/configuration';
 import * as express from 'express';
 import * as bodyParser from 'body-parser'; 
+import * as cors from 'cors';
 
 async function bootstrap() {
   const server = express();
@@ -16,6 +17,16 @@ async function bootstrap() {
   const adapter = new ExpressAdapter(server);
   const api = await NestFactory.create(ApiModule, adapter);
   const admin = await NestFactory.create(AdminModule, adapter);
+
+  const corsOptions = {
+    origin: '*', // Cambia esto a tu dominio o usa '*' para permitir todos
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    credentials: true,
+    preflightContinue: false,
+  };
+
+  api.enableCors(corsOptions);
+  admin.enableCors(corsOptions);
 
   api.enableShutdownHooks();
   admin.enableShutdownHooks();
